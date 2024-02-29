@@ -18,7 +18,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 @Slf4j
 public class JobListenerConfig {
 
@@ -39,7 +39,7 @@ public class JobListenerConfig {
     }
 
     @Bean
-    @StepScope // jobParameters를 받고싶을때는 얘가 필요하고
+    @StepScope
     public Tasklet jobListenerTasklet() {
         return new Tasklet() {
             @Override

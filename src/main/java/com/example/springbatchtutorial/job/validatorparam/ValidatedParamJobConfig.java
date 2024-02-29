@@ -23,7 +23,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import java.util.Arrays;
 
 @Configuration
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 @Slf4j
 public class ValidatedParamJobConfig {
 
