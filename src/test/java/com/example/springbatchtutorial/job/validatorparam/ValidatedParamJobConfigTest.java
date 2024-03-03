@@ -1,5 +1,6 @@
 package com.example.springbatchtutorial.job.validatorparam;
 
+import com.example.springbatchtutorial.SpringBatchTestConfig;
 import org.junit.jupiter.api.Test;
 import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.JobExecution;

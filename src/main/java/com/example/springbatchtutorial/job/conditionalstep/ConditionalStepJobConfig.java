@@ -1,5 +1,6 @@
 package com.example.springbatchtutorial.job.conditionalstep;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -15,13 +16,14 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 @Slf4j
 @Configuration
+@RequiredArgsConstructor
 /**
  * 상황/조건에 따라 Step 분기 처리
  */
 public class ConditionalStepJobConfig {
     @Bean
     public Job conditionalStepJob(JobRepository jobRepository, Step conditionalStartStep, Step conditionalFailStep
-            , Step conditionalCompletedStep, Step conditionalAllstep) {
+            , Step conditionalCompletedStep, Step conditionalAllStep) {
         return new JobBuilder("conditionalStepJob", jobRepository)
                 .incrementer(new RunIdIncrementer())
                 .start(conditionalStartStep)
@@ -29,12 +31,12 @@ public class ConditionalStepJobConfig {
                 .from(conditionalStartStep)
                     .on("COMPLETED").to(conditionalCompletedStep)
                 .from(conditionalStartStep)
-                    .on("*").to(conditionalAllstep)
+                    .on("*").to(conditionalAllStep)
                 .end()
                 .build();
     }
     @Bean
-    public Step conditionalStartStep(JobRepository jobRepository, PlatformTransactionManager transactionManager, Tasklet validatedParamTasklet) {
+    public Step conditionalStartStep(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
         return new StepBuilder("conditionalStartStep", jobRepository)
                 .tasklet((contribution, chunkContext) -> {
                     log.info("###### conditionalStartStep ######");
@@ -45,17 +47,17 @@ public class ConditionalStepJobConfig {
     }
 
     @Bean
-    public Step conditionalAllstep(JobRepository jobRepository, PlatformTransactionManager transactionManager, Tasklet validatedParamTasklet) {
-        return new StepBuilder("conditionalAllstep", jobRepository)
+    public Step conditionalAllStep(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
+        return new StepBuilder("conditionalAllStep", jobRepository)
                 .tasklet((contribution, chunkContext) -> {
-                    log.info("###### conditionalAllstep ######");
+                    log.info("###### conditionalAllStep ######");
                     return RepeatStatus.FINISHED;
                 }, transactionManager)
                 .build();
     }
 
     @Bean
-    public Step conditionalFailStep(JobRepository jobRepository, PlatformTransactionManager transactionManager, Tasklet validatedParamTasklet) {
+    public Step conditionalFailStep(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
         return new StepBuilder("conditionalFailStep", jobRepository)
                 .tasklet((contribution, chunkContext) -> {
                     log.info("###### conditionalFailStep ######");
@@ -65,7 +67,7 @@ public class ConditionalStepJobConfig {
     }
 
     @Bean
-    public Step conditionalCompletedStep(JobRepository jobRepository, PlatformTransactionManager transactionManager, Tasklet validatedParamTasklet) {
+    public Step conditionalCompletedStep(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
         return new StepBuilder("conditionalCompletedStep", jobRepository)
                 .tasklet((contribution, chunkContext) -> {
                     log.info("###### conditionalCompletedStep ######");

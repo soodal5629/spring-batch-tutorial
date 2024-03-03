@@ -17,7 +17,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 @Slf4j
 @Configuration
-//@RequiredArgsConstructor
+@RequiredArgsConstructor
 public class MultipleStepJobConfig {
     @Bean
     public Job multipleStepJob(JobRepository jobRepository, Step multipleStep1, Step multipleStep2, Step multipleStep3) {

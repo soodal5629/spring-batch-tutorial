@@ -1,4 +1,4 @@
-package com.example.springbatchtutorial.job.validatorparam;
+package com.example.springbatchtutorial;
 
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;

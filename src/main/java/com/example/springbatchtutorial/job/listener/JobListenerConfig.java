@@ -18,7 +18,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration
-//@RequiredArgsConstructor
+@RequiredArgsConstructor
 @Slf4j
 public class JobListenerConfig {
 

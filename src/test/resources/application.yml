@@ -1,0 +1,6 @@
+spring:
+  profiles:
+    active: test
+logging:
+  pattern:
+    level: debug
