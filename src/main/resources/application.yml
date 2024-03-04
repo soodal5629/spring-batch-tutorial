@@ -12,6 +12,7 @@ spring:
     job:
       #names: ${job.name:NONE}
       name: ${job.name:NONE}
+      enabled: false # 프로젝트 실행 시 job.name 파라미터가 존재하더라도 특정 job이 실행되지 않음 -> 스케쥴링 이용
     jdbc:
       initialize-schema: always
   datasource:
